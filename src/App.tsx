@@ -1,10 +1,22 @@
-import Form from "./components/Form";
+import useUsers from "./hooks/useUsers";
 
 function App() {
+  const { users, loading, error } = useUsers();
+
+  if (loading) {
+    return <p>Cargando...</p>;
+  }
+
+  if (error && !loading) {
+    return <p>Ah ocurrido un error :c</p>;
+  }
+
   return (
-    <div className="container">
-      <Form />
-    </div>
+    <ul>
+      {users.map((u) => (
+        <li key={u.id}>{u.name}</li>
+      ))}
+    </ul>
   );
 }
 
